@@ -15,6 +15,15 @@ func (me *LuaStack) Size() int {
 	return len(me.slots)
 }
 
+// Check 检查栈中是否有n个或以上空闲空间，如果没有则扩容
+func (me *LuaStack) Check(n int) {
+	var diff = n - (me.Size() - me.top)
+	for i := 0; i < diff; i++ {
+		luaNil := luavalue.NewLuaNil()
+		me.slots = append(me.slots, &luaNil)
+	}
+}
+
 // Push 向栈顶压入一个Lua值
 func (me *LuaStack) Push(value luavalue.ILuaValue) {
 	if me.top >= me.Size() {
