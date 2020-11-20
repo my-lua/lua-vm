@@ -10,6 +10,11 @@ type LuaStack struct {
 	slots []luavalue.ILuaValue
 }
 
+// Top 获取栈顶位置索引（内部索引）
+func (me *LuaStack) Top() int {
+	return me.top
+}
+
 // Size 获取栈容量
 func (me *LuaStack) Size() int {
 	return len(me.slots)
@@ -64,8 +69,8 @@ func (me *LuaStack) Get(index int) luavalue.ILuaValue {
 	if me.IndexIsValid(index) {
 		return me.slots[me.AbsIndex(index)-1]
 	}
-	result := luavalue.NewLuaNil()
-	return &result
+	luaNil := luavalue.NewLuaNil()
+	return &luaNil
 }
 
 // Set 设置Lua值到栈中指定索引（外部索引）
