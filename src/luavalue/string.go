@@ -1,5 +1,7 @@
 package luavalue
 
+import "strconv"
+
 // LuaString s
 type LuaString string
 
@@ -28,11 +30,20 @@ func (me *LuaString) GetBoolean() bool {
 
 // GetInteger s
 func (me *LuaString) GetInteger() int64 {
+	if result, err := strconv.ParseInt(me.ValueSrc(), 10, 64); err == nil {
+		return result
+	}
+	if result, err := strconv.ParseFloat(me.ValueSrc(), 64); err == nil {
+		return int64(result)
+	}
 	return 0
 }
 
 // GetNumber s
 func (me *LuaString) GetNumber() float64 {
+	if result, err := strconv.ParseFloat(me.ValueSrc(), 64); err == nil {
+		return result
+	}
 	return 0.0
 }
 
