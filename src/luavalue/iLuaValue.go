@@ -1,4 +1,4 @@
-package value
+package luavalue
 
 // ILuaValue Lua值约束接口
 type ILuaValue interface {

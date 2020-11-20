@@ -1,4 +1,4 @@
 package state
 
-// LuaState Lua实例状态
+// LuaState Lua状态实例
 type LuaState struct{}
