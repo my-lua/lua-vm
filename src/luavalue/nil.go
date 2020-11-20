@@ -52,3 +52,8 @@ func (me *LuaNil) ToLuaNumber() LuaNumber {
 func (me *LuaNil) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
+
+// NewLuaNil 构造函数
+func NewLuaNil() LuaNil {
+	return LuaNil(0)
+}

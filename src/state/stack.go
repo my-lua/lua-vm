@@ -34,12 +34,21 @@ func (me *LuaStack) IndexIsValid(index int64) bool {
 	return absIndex > 0 && absIndex <= me.top
 }
 
+// Get 根据索引从栈内获取Lua值（外部索引）
 func (me *LuaStack) Get(index int64) luavalue.ILuaValue {
-
+	if me.IndexIsValid(index) {
+		return me.slots[me.AbsIndex(index)-1]
+	}
+	return me.slots[me.AbsIndex(index)-1]
 }
 
+// Set 设置Lua值到栈中指定索引（外部索引）
 func (me *LuaStack) Set(index int64, value luavalue.ILuaValue) {
-
+	if me.IndexIsValid(index) {
+		me.slots[me.AbsIndex(index)-1] = value
+		return
+	}
+	panic("LuaStack Set: 错误的索引")
 }
 
 // NewLuaStack 构造函数
