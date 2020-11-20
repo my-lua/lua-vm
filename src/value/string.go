@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 // LuaString s
 type LuaString string

@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 // LuaNil s
 type LuaNil int64

@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 // LuaNone s
 type LuaNone int64

@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 // LuaBoolean Lua布尔值
 type LuaBoolean bool

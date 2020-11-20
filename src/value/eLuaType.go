@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 // ELuaType Lua数据类型枚举
 type ELuaType int

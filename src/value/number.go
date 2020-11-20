@@ -1,4 +1,4 @@
-package luavalue
+package value
 
 import "strconv"
 
