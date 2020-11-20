@@ -82,6 +82,16 @@ func (me *LuaStack) Set(index int, value luavalue.ILuaValue) {
 	panic("LuaStack Set: 错误的索引")
 }
 
+// Reverse 特定栈区间倒序
+func (me *LuaStack) Reverse(fromIndex, toIndex int) {
+	slots := me.slots
+	for fromIndex < toIndex {
+		slots[fromIndex], slots[toIndex] = slots[toIndex], slots[fromIndex]
+		fromIndex++
+		toIndex--
+	}
+}
+
 // NewLuaStack 构造函数
 func NewLuaStack(size int) *LuaStack {
 	return &LuaStack{
