@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
-	fmt.Println("你好世界")
+	var num float64 = 3.14167
+	fmt.Println(strconv.FormatFloat(num, 'f', -1, 64))
 }
