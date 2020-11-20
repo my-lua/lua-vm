@@ -1,6 +1,8 @@
 package state
 
 import (
+	"fmt"
+
 	"../luavalue"
 )
 
@@ -98,4 +100,12 @@ func NewLuaStack(size int) *LuaStack {
 		top:   0,
 		slots: make([]luavalue.ILuaValue, size),
 	}
+}
+
+// Print 打印栈内值
+func (me *LuaStack) Print() {
+	for _, value := range me.slots[:me.top] {
+		fmt.Printf("[%s]", value.GetString())
+	}
+	fmt.Println("")
 }
