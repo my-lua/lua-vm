@@ -146,7 +146,7 @@ func (me *LuaTable) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
-// NewLuaTable s
+// NewLuaTable 构造函数
 func NewLuaTable(nArr, nRec int) *LuaTable {
 	result := &LuaTable{}
 	if nArr > 0 {
