@@ -15,7 +15,11 @@ func (me *LuaTable) Len() int64 {
 func (me *LuaTable) AbsIndex(index int64) int64 {
 	result := index - 1
 	if index < 0 {
-		result = me.Len() + index
+		if me.Len() > 0 {
+			result = me.Len() + index
+		} else {
+			result = 0
+		}
 	}
 	return result
 }
@@ -67,30 +71,24 @@ func (me *LuaTable) expandArray() {
 
 // Put 根据Key和Value设置某个Lua值到表内
 func (me *LuaTable) Put(key, value ILuaValue) {
-	var index int64 = -1
-
-	switch key.Type() {
-	case LuaTypeInteger:
-		index = key.GetInteger()
-	case LuaTypeNumber:
-		index = key.GetInteger()
-	}
-
-	absIndex := me.AbsIndex(index)
-	// 如果索引在数组范围内
-	if me.IndexIsValid(index) {
-		me.tArray[absIndex] = value
-		if absIndex == me.Len()-1 && value.Type() == LuaTypeNil {
-			me.shrinkArray()
+	if key.Type() == LuaTypeInteger || key.Type() == LuaTypeNumber {
+		index := key.GetInteger()
+		absIndex := me.AbsIndex(index)
+		// 如果索引在数组范围内
+		if me.IndexIsValid(index) {
+			me.tArray[absIndex] = value
+			if absIndex == me.Len()-1 && value.Type() == LuaTypeNil {
+				me.shrinkArray()
+			}
+			return
+		} else if absIndex == me.Len() {
+			delete(me.tMap, key)
+			if value.Type() != LuaTypeNil {
+				me.tArray = append(me.tArray, value)
+				me.expandArray()
+			}
+			return
 		}
-		return
-	} else if absIndex == me.Len() {
-		delete(me.tMap, key)
-		if value.Type() != LuaTypeNil {
-			me.tArray = append(me.tArray, value)
-			me.expandArray()
-		}
-		return
 	}
 
 	if value.Type() != LuaTypeNil {
