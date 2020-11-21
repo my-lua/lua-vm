@@ -6,22 +6,22 @@ import "strconv"
 type LuaString string
 
 // Type s
-func (me *LuaString) Type() ELuaType {
+func (me LuaString) Type() ELuaType {
 	return LuaTypeString
 }
 
 // Value s
-func (me *LuaString) Value() interface{} {
-	return *me
+func (me LuaString) Value() interface{} {
+	return me
 }
 
 // ValueSrc s
-func (me *LuaString) ValueSrc() string {
-	return string(*me)
+func (me LuaString) ValueSrc() string {
+	return string(me)
 }
 
 // GetBoolean s
-func (me *LuaString) GetBoolean() bool {
+func (me LuaString) GetBoolean() bool {
 	if len(me.ValueSrc()) > 0 {
 		return true
 	}
@@ -29,7 +29,7 @@ func (me *LuaString) GetBoolean() bool {
 }
 
 // GetInteger s
-func (me *LuaString) GetInteger() int64 {
+func (me LuaString) GetInteger() int64 {
 	if result, err := strconv.ParseInt(me.ValueSrc(), 10, 64); err == nil {
 		return result
 	}
@@ -40,7 +40,7 @@ func (me *LuaString) GetInteger() int64 {
 }
 
 // GetNumber s
-func (me *LuaString) GetNumber() float64 {
+func (me LuaString) GetNumber() float64 {
 	if result, err := strconv.ParseFloat(me.ValueSrc(), 64); err == nil {
 		return result
 	}
@@ -48,32 +48,31 @@ func (me *LuaString) GetNumber() float64 {
 }
 
 // GetString s
-func (me *LuaString) GetString() string {
+func (me LuaString) GetString() string {
 	return me.ValueSrc()
 }
 
 // ToLuaBoolean s
-func (me *LuaString) ToLuaBoolean() *LuaBoolean {
+func (me LuaString) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaString) ToLuaInteger() *LuaInteger {
+func (me LuaString) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaString) ToLuaNumber() *LuaNumber {
+func (me LuaString) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaString) ToLuaString() *LuaString {
+func (me LuaString) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaString s
-func NewLuaString(value string) *LuaString {
-	result := LuaString(value)
-	return &result
+func NewLuaString(value string) LuaString {
+	return LuaString(value)
 }
