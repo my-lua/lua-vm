@@ -31,15 +31,10 @@ func (me *LuaTable) IndexIsValid(index int64) bool {
 
 // Get 根据Key从表内取出某个Lua值
 func (me *LuaTable) Get(key ILuaValue) ILuaValue {
-	var index int64 = -1
-	switch key.Type() {
-	case LuaTypeInteger:
-		index = key.GetInteger()
-	case LuaTypeNumber:
-		index = key.GetInteger()
-	}
-	if me.IndexIsValid(index) {
-		return me.tArray[me.AbsIndex(index)]
+	if (key.Type() == LuaTypeInteger ||
+		key.Type() == LuaTypeNumber) &&
+		me.IndexIsValid(key.GetInteger()) {
+		return me.tArray[me.AbsIndex(key.GetInteger())]
 	}
 	if result, found := me.tMap[key]; found {
 		return result
