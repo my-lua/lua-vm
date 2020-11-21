@@ -78,10 +78,10 @@ func (me *LuaTable) Put(key, value ILuaValue) {
 
 	switch key.Type() {
 	case LuaTypeInteger:
-		index = key.(*LuaInteger).GetInteger()
+		index = key.GetInteger()
 		break
 	case LuaTypeNumber:
-		index = key.(*LuaNumber).GetInteger()
+		index = key.GetInteger()
 		break
 	}
 
