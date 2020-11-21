@@ -7,12 +7,12 @@ type LuaTable struct {
 }
 
 // Len s
-func (me *LuaTable) Len() int {
-	return len(me.tArray)
+func (me *LuaTable) Len() int64 {
+	return int64(len(me.tArray))
 }
 
 // AbsIndex s
-func (me *LuaTable) AbsIndex(index int) int {
+func (me *LuaTable) AbsIndex(index int64) int64 {
 	result := index - 1
 	if index < 0 {
 		result = me.Len() + index
@@ -21,7 +21,7 @@ func (me *LuaTable) AbsIndex(index int) int {
 }
 
 // IndexIsValid s
-func (me *LuaTable) IndexIsValid(index int) bool {
+func (me *LuaTable) IndexIsValid(index int64) bool {
 	absIndex := me.AbsIndex(index)
 	if absIndex >= 0 && absIndex < me.Len() {
 		return true
@@ -40,8 +40,8 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 		index = key.GetInteger()
 		break
 	}
-	if index >= 1 && index <= int64(len(me.tArray)) {
-		return me.tArray[index-1]
+	if me.IndexIsValid(index) {
+		return me.tArray[me.AbsIndex(index)]
 	}
 	if result, found := me.tMap[key]; found {
 		return result
