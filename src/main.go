@@ -8,10 +8,10 @@ import (
 
 func main() {
 	table := luavalue.NewLuaTable(10, 0)
-	// key := luavalue.NewLuaString("nihao")
-	key2 := luavalue.NewLuaNumber(3.14)
-	table.Put(key2, luavalue.NewLuaInteger(13))
-	value := table.Get(key2)
+	key := luavalue.NewLuaString("nihao")
+	// key2 := luavalue.NewLuaNumber(3.14)
+	table.Put(key, luavalue.NewLuaInteger(13))
+	value := table.Get(key)
 	fmt.Println(value.GetString())
 
 	// num := 3.99999999999

@@ -142,7 +142,7 @@ func (me *LuaTable) ToLuaNumber() *LuaNumber {
 }
 
 // ToLuaString s
-func (me *LuaTable) ToLuaString() *LuaString {
+func (me *LuaTable) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 

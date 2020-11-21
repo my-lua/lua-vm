@@ -49,7 +49,7 @@ func (me *LuaNil) ToLuaNumber() *LuaNumber {
 }
 
 // ToLuaString s
-func (me *LuaNil) ToLuaString() *LuaString {
+func (me *LuaNil) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 

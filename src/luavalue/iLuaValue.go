@@ -8,7 +8,7 @@ type ILuaValue interface {
 	ToLuaBoolean() *LuaBoolean
 	ToLuaInteger() *LuaInteger
 	ToLuaNumber() *LuaNumber
-	ToLuaString() *LuaString
+	ToLuaString() LuaString
 
 	GetBoolean() bool
 	GetInteger() int64
