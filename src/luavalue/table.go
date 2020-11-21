@@ -7,8 +7,20 @@ type LuaTable struct {
 }
 
 // Get s
-func (me *LuaTable) Get(key ILuaValue) {
-
+func (me *LuaTable) Get(key ILuaValue) ILuaValue {
+	var index int64 = -1
+	switch key.Type() {
+	case LuaTypeInteger:
+		index = key.(*LuaInteger).GetInteger()
+		break
+	case LuaTypeNumber:
+		index = int64(key.(*LuaNumber).GetNumber())
+		break
+	}
+	if index >= 1 && index <= int64(len(me.tArray)) {
+		return me.tArray[index-1]
+	}
+	return me.tMap[key]
 }
 
 // Put s
