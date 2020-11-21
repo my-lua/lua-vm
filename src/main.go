@@ -7,12 +7,19 @@ import (
 )
 
 func main() {
-	num := 3.99999999999
-	fmt.Println(int(num))
+	table := luavalue.NewLuaTable(10, 0)
+	// key := luavalue.NewLuaString("nihao")
+	key2 := luavalue.NewLuaNumber(3.14)
+	table.Put(key2, luavalue.NewLuaInteger(13))
+	value := table.Get(key2)
+	fmt.Println(value.GetString())
 
-	tmap := make(map[string]luavalue.ILuaValue, 1)
+	// num := 3.99999999999
+	// fmt.Println(int(num))
 
-	fmt.Println(tmap["2"])
+	// tmap := make(map[string]luavalue.ILuaValue, 1)
+
+	// fmt.Println(tmap["2"])
 
 	// s := state.NewLuaStack(10)
 	// boolValue := luavalue.NewLuaBoolean(true)
