@@ -8,23 +8,14 @@ type LuaTable struct {
 
 // Get 根据Key从表内取出某个Lua值
 func (me *LuaTable) Get(key ILuaValue) ILuaValue {
-	var index int64 = -1
-	switch key.Type() {
-	case LuaTypeInteger:
-		index = key.(*LuaInteger).GetInteger()
-		break
-	case LuaTypeNumber:
-		index = key.(*LuaNumber).GetInteger()
-		break
-	}
+	var index int64 = key.GetInteger()
 	if index >= 1 && index <= int64(len(me.tArray)) {
 		return me.tArray[index-1]
 	}
-	result := me.tMap[key]
-	if result == nil {
-		return NewLuaNil()
+	if result, found := me.tMap[key]; found {
+		return result
 	}
-	return result
+	return NewLuaNil()
 }
 
 func (me *LuaTable) shrinkArray() {
