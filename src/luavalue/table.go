@@ -6,9 +6,40 @@ type LuaTable struct {
 	tMap   map[ILuaValue]ILuaValue
 }
 
+// Len s
+func (me *LuaTable) Len() int {
+	return len(me.tArray)
+}
+
+// AbsIndex s
+func (me *LuaTable) AbsIndex(index int) int {
+	result := index - 1
+	if index < 0 {
+		result = me.Len() + index
+	}
+	return result
+}
+
+// IndexIsValid s
+func (me *LuaTable) IndexIsValid(index int) bool {
+	absIndex := me.AbsIndex(index)
+	if absIndex >= 0 && absIndex < me.Len() {
+		return true
+	}
+	return false
+}
+
 // Get 根据Key从表内取出某个Lua值
 func (me *LuaTable) Get(key ILuaValue) ILuaValue {
-	var index int64 = key.GetInteger()
+	var index int64 = -1
+	switch key.Type() {
+	case LuaTypeInteger:
+		index = key.GetInteger()
+		break
+	case LuaTypeNumber:
+		index = key.GetInteger()
+		break
+	}
 	if index >= 1 && index <= int64(len(me.tArray)) {
 		return me.tArray[index-1]
 	}
