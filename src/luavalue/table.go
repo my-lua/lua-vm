@@ -20,7 +20,11 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 	if index >= 1 && index <= int64(len(me.tArray)) {
 		return me.tArray[index-1]
 	}
-	return me.tMap[key]
+	result := me.tMap[key]
+	if result == nil {
+		return NewLuaNil()
+	}
+	return result
 }
 
 // Put 根据Key和Value设置某个Lua值到表内
