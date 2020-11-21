@@ -7,7 +7,7 @@ type LuaNumber float64
 
 // Type s
 func (me LuaNumber) Type() ELuaType {
-	return LuaTypeBoolean
+	return LuaTypeNumber
 }
 
 // Value s

@@ -34,9 +34,9 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 	var index int64 = -1
 	switch key.Type() {
 	case LuaTypeInteger:
+		index = key.GetInteger()
 	case LuaTypeNumber:
 		index = key.GetInteger()
-		break
 	}
 	if me.IndexIsValid(index) {
 		return me.tArray[me.AbsIndex(index)]
@@ -76,9 +76,9 @@ func (me *LuaTable) Put(key, value ILuaValue) {
 
 	switch key.Type() {
 	case LuaTypeInteger:
+		index = key.GetInteger()
 	case LuaTypeNumber:
 		index = key.GetInteger()
-		break
 	}
 
 	absIndex := me.AbsIndex(index)
