@@ -7,7 +7,7 @@ type LuaTable struct {
 }
 
 // Get s
-func (me *LuaTable) Get(key ILuaValue) ILuaValue {
+func (me *LuaTable) Get(key ILuaValue) {
 
 }
 
