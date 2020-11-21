@@ -6,7 +6,7 @@ type LuaTable struct {
 	tMap   map[ILuaValue]ILuaValue
 }
 
-// Get s
+// Get 根据Key从表内取出某个Lua值
 func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 	var index int64 = -1
 	switch key.Type() {
@@ -23,7 +23,7 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 	return me.tMap[key]
 }
 
-// Put s
+// Put 根据Key和Value设置某个Lua值到表内
 func (me *LuaTable) Put(key, value ILuaValue) {
 
 }
