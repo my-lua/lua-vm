@@ -14,7 +14,7 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 		index = key.(*LuaInteger).GetInteger()
 		break
 	case LuaTypeNumber:
-		index = int64(key.(*LuaNumber).GetNumber())
+		index = key.(*LuaNumber).GetInteger()
 		break
 	}
 	if index >= 1 && index <= int64(len(me.tArray)) {
@@ -29,7 +29,43 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 
 // Put 根据Key和Value设置某个Lua值到表内
 func (me *LuaTable) Put(key, value ILuaValue) {
+	var index int64 = -1
 
+	switch key.Type() {
+	case LuaTypeInteger:
+		index = key.(*LuaInteger).GetInteger()
+		break
+	case LuaTypeNumber:
+		index = key.(*LuaNumber).GetInteger()
+		break
+	}
+
+	if index >= 1 {
+		arrayLen := int64(len(me.tArray))
+		if index <= arrayLen {
+			me.tArray[index-1] = value
+			if index == arrayLen && value.Type() == LuaTypeNil {
+				// 释放尾部
+			}
+			return
+		} else if index == arrayLen+1 {
+			delete(me.tMap, key)
+			if value.Type() != LuaTypeNil {
+				me.tArray = append(me.tArray, value)
+				// 拓展数组
+			}
+			return
+		}
+	}
+
+	if value.Type() != LuaTypeNil {
+		if me.tMap == nil {
+			me.tMap = make(map[ILuaValue]ILuaValue, 8)
+		}
+		me.tMap[key] = value
+	} else {
+		delete(me.tMap, key)
+	}
 }
 
 // Type s
