@@ -13,15 +13,7 @@ func (me *LuaTable) Len() int64 {
 
 // AbsIndex s
 func (me *LuaTable) AbsIndex(index int64) int64 {
-	result := index - 1
-	if index < 0 {
-		if me.Len() > 0 {
-			result = me.Len() + index
-		} else {
-			result = 0
-		}
-	}
-	return result
+	return index - 1
 }
 
 // IndexIsValid s
