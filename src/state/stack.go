@@ -26,8 +26,7 @@ func (me *LuaStack) Size() int {
 func (me *LuaStack) Check(n int) {
 	var diff = n - (me.Size() - me.top)
 	for i := 0; i < diff; i++ {
-		luaNil := luavalue.NewLuaNil()
-		me.slots = append(me.slots, &luaNil)
+		me.slots = append(me.slots, luavalue.NewLuaNil())
 	}
 }
 
@@ -47,8 +46,7 @@ func (me *LuaStack) Pop() luavalue.ILuaValue {
 	}
 	me.top--
 	result := me.slots[me.top]
-	luaNil := luavalue.NewLuaNil()
-	me.slots[me.top] = &luaNil
+	me.slots[me.top] = luavalue.NewLuaNil()
 	return result
 }
 
@@ -71,8 +69,7 @@ func (me *LuaStack) Get(index int) luavalue.ILuaValue {
 	if me.IndexIsValid(index) {
 		return me.slots[me.AbsIndex(index)-1]
 	}
-	luaNil := luavalue.NewLuaNil()
-	return &luaNil
+	return luavalue.NewLuaNil()
 }
 
 // Set 设置Lua值到栈中指定索引（外部索引）

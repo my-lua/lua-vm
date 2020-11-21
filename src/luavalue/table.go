@@ -52,22 +52,22 @@ func (me *LuaTable) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaTable) ToLuaBoolean() LuaBoolean {
+func (me *LuaTable) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaTable) ToLuaInteger() LuaInteger {
+func (me *LuaTable) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaTable) ToLuaNumber() LuaNumber {
+func (me *LuaTable) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaTable) ToLuaString() LuaString {
+func (me *LuaTable) ToLuaString() *LuaString {
 	return NewLuaString(me.GetString())
 }
 

@@ -48,26 +48,27 @@ func (me *LuaBoolean) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaBoolean) ToLuaBoolean() LuaBoolean {
+func (me *LuaBoolean) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaBoolean) ToLuaInteger() LuaInteger {
+func (me *LuaBoolean) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaBoolean) ToLuaNumber() LuaNumber {
+func (me *LuaBoolean) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaBoolean) ToLuaString() LuaString {
+func (me *LuaBoolean) ToLuaString() *LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaBoolean 构造函数
-func NewLuaBoolean(value bool) LuaBoolean {
-	return LuaBoolean(value)
+func NewLuaBoolean(value bool) *LuaBoolean {
+	result := LuaBoolean(value)
+	return &result
 }

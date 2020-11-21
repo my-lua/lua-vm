@@ -44,26 +44,27 @@ func (me *LuaInteger) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaInteger) ToLuaBoolean() LuaBoolean {
+func (me *LuaInteger) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaInteger) ToLuaInteger() LuaInteger {
+func (me *LuaInteger) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaInteger) ToLuaNumber() LuaNumber {
+func (me *LuaInteger) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaInteger) ToLuaString() LuaString {
+func (me *LuaInteger) ToLuaString() *LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaInteger s
-func NewLuaInteger(value int64) LuaInteger {
-	return LuaInteger(value)
+func NewLuaInteger(value int64) *LuaInteger {
+	result := LuaInteger(value)
+	return &result
 }

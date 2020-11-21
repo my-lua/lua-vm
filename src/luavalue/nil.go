@@ -34,26 +34,27 @@ func (me *LuaNil) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaNil) ToLuaBoolean() LuaBoolean {
+func (me *LuaNil) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaNil) ToLuaInteger() LuaInteger {
+func (me *LuaNil) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaNil) ToLuaNumber() LuaNumber {
+func (me *LuaNil) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaNil) ToLuaString() LuaString {
+func (me *LuaNil) ToLuaString() *LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaNil 构造函数
-func NewLuaNil() LuaNil {
-	return LuaNil(0)
+func NewLuaNil() *LuaNil {
+	result := LuaNil(0)
+	return &result
 }

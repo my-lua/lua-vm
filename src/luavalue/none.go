@@ -34,21 +34,21 @@ func (me *LuaNone) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaNone) ToLuaBoolean() LuaBoolean {
+func (me *LuaNone) ToLuaBoolean() *LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaNone) ToLuaInteger() LuaInteger {
+func (me *LuaNone) ToLuaInteger() *LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaNone) ToLuaNumber() LuaNumber {
+func (me *LuaNone) ToLuaNumber() *LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaNone) ToLuaString() LuaString {
+func (me *LuaNone) ToLuaString() *LuaString {
 	return NewLuaString(me.GetString())
 }
