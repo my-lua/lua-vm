@@ -1,7 +1,7 @@
 package luavalue
 
 // LuaNone s
-type LuaNone int64
+type LuaNone int
 
 // Type s
 func (me *LuaNone) Type() ELuaType {
