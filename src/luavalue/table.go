@@ -1,5 +1,7 @@
 package luavalue
 
+import "fmt"
+
 // LuaTable s
 type LuaTable struct {
 	tArray []ILuaValue
@@ -158,4 +160,23 @@ func NewLuaTable(nArr, nRec int) *LuaTable {
 		result.tMap = make(map[ILuaValue]ILuaValue, nRec)
 	}
 	return result
+}
+
+// Print s
+func (me *LuaTable) Print() {
+	fmt.Println("array:")
+	fmt.Print("\t")
+	if me.tArray != nil {
+		for _, item := range me.tArray {
+			fmt.Printf("[%s]", item.GetString())
+		}
+	}
+	fmt.Println("")
+	fmt.Println("map:")
+	if me.tMap != nil {
+		for key, value := range me.tMap {
+			fmt.Printf("\t[%s]\t%s\n", key.GetString(), value.GetString())
+		}
+	}
+	fmt.Println("")
 }
