@@ -27,6 +27,29 @@ func (me *LuaTable) Get(key ILuaValue) ILuaValue {
 	return result
 }
 
+func (me *LuaTable) shrinkArray() {
+	for i := len(me.tArray) - 1; i >= 0; i-- {
+		curItem := me.tArray[i]
+		if curItem.Type() == LuaTypeNil {
+			me.tArray = me.tArray[:i]
+		} else {
+			break
+		}
+	}
+}
+
+func (me *LuaTable) expandArray() {
+	for i := len(me.tArray) + 1; true; i++ {
+		key := NewLuaInteger(int64(i))
+		if value, found := me.tMap[key]; found {
+			delete(me.tMap, key)
+			me.tArray = append(me.tArray, value)
+		} else {
+			break
+		}
+	}
+}
+
 // Put 根据Key和Value设置某个Lua值到表内
 func (me *LuaTable) Put(key, value ILuaValue) {
 	var index int64 = -1
@@ -45,14 +68,14 @@ func (me *LuaTable) Put(key, value ILuaValue) {
 		if index <= arrayLen {
 			me.tArray[index-1] = value
 			if index == arrayLen && value.Type() == LuaTypeNil {
-				// 释放尾部
+				me.shrinkArray()
 			}
 			return
 		} else if index == arrayLen+1 {
 			delete(me.tMap, key)
 			if value.Type() != LuaTypeNil {
 				me.tArray = append(me.tArray, value)
-				// 拓展数组
+				me.expandArray()
 			}
 			return
 		}
