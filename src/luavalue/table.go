@@ -2,15 +2,27 @@ package luavalue
 
 // LuaTable s
 type LuaTable struct {
+	tArray []ILuaValue
+	tMap   map[ILuaValue]ILuaValue
+}
+
+// Get s
+func (me *LuaTable) Get(key ILuaValue) ILuaValue {
+
+}
+
+// Put s
+func (me *LuaTable) Put(key, value ILuaValue) {
+
 }
 
 // Type s
-func (*LuaTable) Type() ELuaType {
+func (me *LuaTable) Type() ELuaType {
 	return LuaTypeTable
 }
 
 // Value s
-func (*LuaTable) Value() interface{} {
+func (me *LuaTable) Value() interface{} {
 	return "[table]"
 }
 
@@ -60,6 +72,13 @@ func (me *LuaTable) ToLuaString() LuaString {
 }
 
 // NewLuaTable s
-func NewLuaTable(nArr, nRec int) {
-
+func NewLuaTable(nArr, nRec int) *LuaTable {
+	result := &LuaTable{}
+	if nArr > 0 {
+		result.tArray = make([]ILuaValue, 0, nArr)
+	}
+	if nRec > 0 {
+		result.tMap = make(map[ILuaValue]ILuaValue, nRec)
+	}
+	return result
 }
