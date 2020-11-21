@@ -53,17 +53,17 @@ func (me LuaString) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me LuaString) ToLuaBoolean() *LuaBoolean {
+func (me LuaString) ToLuaBoolean() LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me LuaString) ToLuaInteger() *LuaInteger {
+func (me LuaString) ToLuaInteger() LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me LuaString) ToLuaNumber() *LuaNumber {
+func (me LuaString) ToLuaNumber() LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 

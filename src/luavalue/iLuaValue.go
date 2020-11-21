@@ -5,9 +5,9 @@ type ILuaValue interface {
 	Type() ELuaType
 	Value() interface{}
 
-	ToLuaBoolean() *LuaBoolean
-	ToLuaInteger() *LuaInteger
-	ToLuaNumber() *LuaNumber
+	ToLuaBoolean() LuaBoolean
+	ToLuaInteger() LuaInteger
+	ToLuaNumber() LuaNumber
 	ToLuaString() LuaString
 
 	GetBoolean() bool

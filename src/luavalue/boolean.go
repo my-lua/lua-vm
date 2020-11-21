@@ -4,27 +4,27 @@ package luavalue
 type LuaBoolean bool
 
 // Type s
-func (me *LuaBoolean) Type() ELuaType {
+func (me LuaBoolean) Type() ELuaType {
 	return LuaTypeBoolean
 }
 
 // Value s
-func (me *LuaBoolean) Value() interface{} {
-	return *me
+func (me LuaBoolean) Value() interface{} {
+	return me
 }
 
 // ValueSrc s
-func (me *LuaBoolean) ValueSrc() bool {
-	return bool(*me)
+func (me LuaBoolean) ValueSrc() bool {
+	return bool(me)
 }
 
 // GetBoolean s
-func (me *LuaBoolean) GetBoolean() bool {
+func (me LuaBoolean) GetBoolean() bool {
 	return me.ValueSrc()
 }
 
 // GetInteger s
-func (me *LuaBoolean) GetInteger() int64 {
+func (me LuaBoolean) GetInteger() int64 {
 	if me.ValueSrc() {
 		return 1
 	}
@@ -32,7 +32,7 @@ func (me *LuaBoolean) GetInteger() int64 {
 }
 
 // GetNumber s
-func (me *LuaBoolean) GetNumber() float64 {
+func (me LuaBoolean) GetNumber() float64 {
 	if me.ValueSrc() {
 		return 1.0
 	}
@@ -40,7 +40,7 @@ func (me *LuaBoolean) GetNumber() float64 {
 }
 
 // GetString s
-func (me *LuaBoolean) GetString() string {
+func (me LuaBoolean) GetString() string {
 	if me.ValueSrc() {
 		return "true"
 	}
@@ -48,27 +48,26 @@ func (me *LuaBoolean) GetString() string {
 }
 
 // ToLuaBoolean s
-func (me *LuaBoolean) ToLuaBoolean() *LuaBoolean {
+func (me LuaBoolean) ToLuaBoolean() LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaBoolean) ToLuaInteger() *LuaInteger {
+func (me LuaBoolean) ToLuaInteger() LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaBoolean) ToLuaNumber() *LuaNumber {
+func (me LuaBoolean) ToLuaNumber() LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaBoolean) ToLuaString() LuaString {
+func (me LuaBoolean) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaBoolean 构造函数
-func NewLuaBoolean(value bool) *LuaBoolean {
-	result := LuaBoolean(value)
-	return &result
+func NewLuaBoolean(value bool) LuaBoolean {
+	return LuaBoolean(value)
 }

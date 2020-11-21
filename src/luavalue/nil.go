@@ -4,57 +4,56 @@ package luavalue
 type LuaNil int
 
 // Type s
-func (me *LuaNil) Type() ELuaType {
+func (me LuaNil) Type() ELuaType {
 	return LuaTypeNil
 }
 
 // Value s
-func (me *LuaNil) Value() interface{} {
+func (me LuaNil) Value() interface{} {
 	return nil
 }
 
 // GetBoolean s
-func (me *LuaNil) GetBoolean() bool {
+func (me LuaNil) GetBoolean() bool {
 	return false
 }
 
 // GetInteger s
-func (me *LuaNil) GetInteger() int64 {
+func (me LuaNil) GetInteger() int64 {
 	panic("error")
 }
 
 // GetNumber s
-func (me *LuaNil) GetNumber() float64 {
+func (me LuaNil) GetNumber() float64 {
 	panic("error")
 }
 
 // GetString s
-func (me *LuaNil) GetString() string {
+func (me LuaNil) GetString() string {
 	return "nil"
 }
 
 // ToLuaBoolean s
-func (me *LuaNil) ToLuaBoolean() *LuaBoolean {
+func (me LuaNil) ToLuaBoolean() LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaNil) ToLuaInteger() *LuaInteger {
+func (me LuaNil) ToLuaInteger() LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaNil) ToLuaNumber() *LuaNumber {
+func (me LuaNil) ToLuaNumber() LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaNil) ToLuaString() LuaString {
+func (me LuaNil) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaNil 构造函数
-func NewLuaNil() *LuaNil {
-	result := LuaNil(0)
-	return &result
+func NewLuaNil() LuaNil {
+	return LuaNil(0)
 }

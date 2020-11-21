@@ -6,22 +6,22 @@ import "strconv"
 type LuaNumber float64
 
 // Type s
-func (me *LuaNumber) Type() ELuaType {
+func (me LuaNumber) Type() ELuaType {
 	return LuaTypeBoolean
 }
 
 // Value s
-func (me *LuaNumber) Value() interface{} {
-	return *me
+func (me LuaNumber) Value() interface{} {
+	return me
 }
 
 // ValueSrc s
-func (me *LuaNumber) ValueSrc() float64 {
-	return float64(*me)
+func (me LuaNumber) ValueSrc() float64 {
+	return float64(me)
 }
 
 // GetBoolean s
-func (me *LuaNumber) GetBoolean() bool {
+func (me LuaNumber) GetBoolean() bool {
 	if me.ValueSrc() != 0.0 {
 		return true
 	}
@@ -29,42 +29,41 @@ func (me *LuaNumber) GetBoolean() bool {
 }
 
 // GetInteger s
-func (me *LuaNumber) GetInteger() int64 {
+func (me LuaNumber) GetInteger() int64 {
 	return int64(me.ValueSrc())
 }
 
 // GetNumber s
-func (me *LuaNumber) GetNumber() float64 {
+func (me LuaNumber) GetNumber() float64 {
 	return me.ValueSrc()
 }
 
 // GetString s
-func (me *LuaNumber) GetString() string {
+func (me LuaNumber) GetString() string {
 	return strconv.FormatFloat(me.ValueSrc(), 'f', -1, 64)
 }
 
 // ToLuaBoolean s
-func (me *LuaNumber) ToLuaBoolean() *LuaBoolean {
+func (me LuaNumber) ToLuaBoolean() LuaBoolean {
 	return NewLuaBoolean(me.GetBoolean())
 }
 
 // ToLuaInteger s
-func (me *LuaNumber) ToLuaInteger() *LuaInteger {
+func (me LuaNumber) ToLuaInteger() LuaInteger {
 	return NewLuaInteger(me.GetInteger())
 }
 
 // ToLuaNumber s
-func (me *LuaNumber) ToLuaNumber() *LuaNumber {
+func (me LuaNumber) ToLuaNumber() LuaNumber {
 	return NewLuaNumber(me.GetNumber())
 }
 
 // ToLuaString s
-func (me *LuaNumber) ToLuaString() LuaString {
+func (me LuaNumber) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
 // NewLuaNumber s
-func NewLuaNumber(value float64) *LuaNumber {
-	result := LuaNumber(value)
-	return &result
+func NewLuaNumber(value float64) LuaNumber {
+	return LuaNumber(value)
 }
