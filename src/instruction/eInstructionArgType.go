@@ -1,6 +1,6 @@
 package instruction
 
-// ELuaInstructionArgType 指令参数类型
+// ELuaInstructionArgType 指令参数类型枚举
 type ELuaInstructionArgType byte
 
 const (

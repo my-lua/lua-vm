@@ -1,6 +1,6 @@
 package instruction
 
-// ELuaInstruction 指令操作码
+// ELuaInstruction 指令操作码枚举
 type ELuaInstruction byte
 
 const (
