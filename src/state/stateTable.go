@@ -43,3 +43,37 @@ func (me *LuaState) TableGetIndex(index int, elIndex int64) luavalue.ELuaType {
 	me.stack.Push(value)
 	return value.Type()
 }
+
+// tableGet s
+func (me *LuaState) tableSet(table, key, value luavalue.ILuaValue) {
+	if table.Type() == luavalue.LuaTypeTable {
+		table.(*luavalue.LuaTable).Put(key, value)
+	}
+	panic("LuaState tableSet: 指定索引处的值并非LuaTable")
+}
+
+// TableSet s
+func (me *LuaState) TableSet(index int) {
+	table := me.stack.Get(index)
+	value := me.stack.Pop()
+	key := me.stack.Pop()
+	me.tableSet(table, key, value)
+}
+
+// TableSetField s
+func (me *LuaState) TableSetField(index int, key string) {
+	me.tableSet(
+		me.stack.Get(index),
+		luavalue.NewLuaString(key),
+		me.stack.Pop(),
+	)
+}
+
+// TableSetIndex s
+func (me *LuaState) TableSetIndex(index int, elIndex int64) {
+	me.tableSet(
+		me.stack.Get(index),
+		luavalue.NewLuaInteger(elIndex),
+		me.stack.Pop(),
+	)
+}
