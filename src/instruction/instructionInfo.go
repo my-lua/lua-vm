@@ -10,9 +10,47 @@ type LuaInstructionInfo struct {
 	name     string
 }
 
-// LuaInstructionInfoTable 指令信息列表
-var LuaInstructionInfoTable = []LuaInstructionInfo{
-	/*              T  A  B                C                mode        name    */
+// TestFlag s
+func (me *LuaInstructionInfo) TestFlag() byte {
+	return me.testFlag
+}
+
+// SetAFlag s
+func (me *LuaInstructionInfo) SetAFlag() byte {
+	return me.setAFlag
+}
+
+// ArgBMode s
+func (me *LuaInstructionInfo) ArgBMode() ELuaInstructionArgType {
+	return me.argBMode
+}
+
+// ArgCMode s
+func (me *LuaInstructionInfo) ArgCMode() ELuaInstructionArgType {
+	return me.argCMode
+}
+
+// OpMode s
+func (me *LuaInstructionInfo) OpMode() ELuaInstructionMode {
+	return me.opMode
+}
+
+// Name s
+func (me *LuaInstructionInfo) Name() string {
+	return me.name
+}
+
+// LuaInstructionInfoTable 查询指令信息表
+func LuaInstructionInfoTable(index int) LuaInstructionInfo {
+	if index >= 0 && index < len(luaInstructionInfoTable) {
+		return luaInstructionInfoTable[index]
+	}
+	panic("LuaInstructionInfo LuaInstructionInfoTable: 索引无效")
+}
+
+// luaInstructionInfoTable 指令信息表
+var luaInstructionInfoTable = []LuaInstructionInfo{
+	/*                 T  A  B                C                mode        name    */
 	LuaInstructionInfo{0, 1, InstructionArgR, InstructionArgN, IABC /* */, "MOVE    "}, // R(A) := R(B)
 	LuaInstructionInfo{0, 1, InstructionArgK, InstructionArgN, IABx /* */, "LOADK   "}, // R(A) := Kst(Bx)
 	LuaInstructionInfo{0, 1, InstructionArgN, InstructionArgN, IABx /* */, "LOADKX  "}, // R(A) := Kst(extra arg)
