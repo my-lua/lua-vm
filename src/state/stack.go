@@ -8,13 +8,32 @@ import (
 
 // LuaStack Lua栈
 type LuaStack struct {
-	top   int
-	slots []luavalue.ILuaValue
+	top     int
+	slots   []luavalue.ILuaValue
+	prev    *LuaStack
+	closure *luavalue.LuaClosure
+	varArgs []luavalue.ILuaValue
+	pc      int
 }
 
 // Top 获取栈顶位置索引（内部索引）
 func (me *LuaStack) Top() int {
 	return me.top
+}
+
+// Closure 栈所属于的闭包
+func (me *LuaStack) Closure() *luavalue.LuaClosure {
+	return me.closure
+}
+
+// VarArgs 可变参数列表
+func (me *LuaStack) VarArgs() []luavalue.ILuaValue {
+	return me.varArgs
+}
+
+// PC 程序计数器
+func (me *LuaStack) PC() int {
+	return me.pc
 }
 
 // Size 获取栈容量
