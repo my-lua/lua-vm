@@ -21,6 +21,11 @@ func (me *LuaStack) Top() int {
 	return me.top
 }
 
+// Prev 获取上一个函数调用栈
+func (me *LuaStack) Prev() *LuaStack {
+	return me.prev
+}
+
 // Closure 栈所属于的闭包
 func (me *LuaStack) Closure() *luavalue.LuaClosure {
 	return me.closure
@@ -113,8 +118,12 @@ func (me *LuaStack) Reverse(fromIndex, toIndex int) {
 // NewLuaStack 构造函数
 func NewLuaStack(size int) *LuaStack {
 	return &LuaStack{
-		top:   0,
-		slots: make([]luavalue.ILuaValue, size),
+		top:     0,
+		slots:   make([]luavalue.ILuaValue, size),
+		prev:    nil,
+		closure: nil,
+		varArgs: []luavalue.ILuaValue{},
+		pc:      0,
 	}
 }
 
