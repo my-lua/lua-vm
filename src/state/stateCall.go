@@ -42,5 +42,14 @@ func (me *LuaState) callLuaClosure(closure *luavalue.LuaClosure, nArgs, nResults
 	if nArgs > nParams && isVararg {
 		newStack.varArgs = funcAndArgs[nParams+1:]
 	}
+
+	me.PushStack(newStack)
+	// 这里需要运行闭包
+	me.PopStack()
+
+	if nResults > 0 {
+
+	}
+
 	fmt.Println(nRegs, nParams, isVararg)
 }
