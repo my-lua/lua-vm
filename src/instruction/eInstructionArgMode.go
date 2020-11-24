@@ -1,11 +1,11 @@
 package instruction
 
-// ELuaInstructionArgType 指令参数类型枚举
-type ELuaInstructionArgType byte
+// ELuaInstructionArgMode 指令参数类型枚举
+type ELuaInstructionArgMode byte
 
 const (
 	// InstructionArgN 不表示任何信息
-	InstructionArgN ELuaInstructionArgType = iota
+	InstructionArgN ELuaInstructionArgMode = iota
 	// InstructionArgR IABC模式表示寄存器索引，IAsBx模式表示跳转偏移
 	InstructionArgR
 	// InstructionArgK 常量表索引或寄存器索引

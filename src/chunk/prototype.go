@@ -3,7 +3,7 @@ package chunk
 import (
 	"fmt"
 
-	"../vm"
+	"../instruction"
 	"github.com/fatih/color"
 )
 
@@ -147,8 +147,8 @@ func (me *Prototype) ListCodes() []string {
 			pindex,
 			codeNum,
 			code,
-			vm.Instruction(code).OpName(),
-			vm.Instruction(code).Operands(),
+			instruction.LuaInstruction(code).OpName(),
+			instruction.LuaInstruction(code).Operands(),
 		)
 
 		// 0000.0000.0 100.0000.00 00.0000.00 00.0110

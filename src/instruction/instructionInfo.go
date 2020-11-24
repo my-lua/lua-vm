@@ -4,8 +4,8 @@ package instruction
 type LuaInstructionInfo struct {
 	testFlag byte
 	setAFlag byte
-	argBMode ELuaInstructionArgType
-	argCMode ELuaInstructionArgType
+	argBMode ELuaInstructionArgMode
+	argCMode ELuaInstructionArgMode
 	opMode   ELuaInstructionMode
 	name     string
 }
@@ -21,12 +21,12 @@ func (me *LuaInstructionInfo) SetAFlag() byte {
 }
 
 // ArgBMode s
-func (me *LuaInstructionInfo) ArgBMode() ELuaInstructionArgType {
+func (me *LuaInstructionInfo) ArgBMode() ELuaInstructionArgMode {
 	return me.argBMode
 }
 
 // ArgCMode s
-func (me *LuaInstructionInfo) ArgCMode() ELuaInstructionArgType {
+func (me *LuaInstructionInfo) ArgCMode() ELuaInstructionArgMode {
 	return me.argCMode
 }
 

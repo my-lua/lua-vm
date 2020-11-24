@@ -22,3 +22,32 @@ func (me LuaInstruction) ABx() (a, bx int) {
 func (me LuaInstruction) Ax() int {
 	return int(me >> 6)
 }
+
+// OpCode 获取指令操作码（左边6个字节）
+func (me LuaInstruction) OpCode() ELuaInstruction {
+	return ELuaInstruction(uint32(me) & 0x3f)
+}
+
+// OpName 获取指令名称
+func (me LuaInstruction) OpName() string {
+	info := LuaInstructionInfoTable(int(me.OpCode()))
+	return info.Name()
+}
+
+// OpMode 获取指令模式
+func (me LuaInstruction) OpMode() ELuaInstructionMode {
+	info := LuaInstructionInfoTable(int(me.OpCode()))
+	return info.OpMode()
+}
+
+// BMode 获取操作数B的使用模式
+func (me LuaInstruction) BMode() ELuaInstructionArgMode {
+	info := LuaInstructionInfoTable(int(me.OpCode()))
+	return info.ArgBMode()
+}
+
+// CMode 获取操作数C的使用模式
+func (me LuaInstruction) CMode() ELuaInstructionArgMode {
+	info := LuaInstructionInfoTable(int(me.OpCode()))
+	return info.ArgCMode()
+}
