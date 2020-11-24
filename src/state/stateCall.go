@@ -1,6 +1,8 @@
 package state
 
 import (
+	"fmt"
+
 	"../chunk"
 	"../luavalue"
 )
@@ -25,7 +27,10 @@ func (me *LuaState) Call(nArgs, nResults int) {
 	panic("LuaState Call: 目标索引处的值并非函数")
 }
 
-// callLuaClosure s
+// callLuaClosure 调用闭包
 func (me *LuaState) callLuaClosure(closure *luavalue.LuaClosure, nArgs, nResults int) {
-
+	nRegs := int(closure.Prototype().MaxStackSize())
+	nParams := int(closure.Prototype().NumParams())
+	isVararg := closure.Prototype().IsVararg() == 1
+	fmt.Println(nRegs, nParams, isVararg)
 }

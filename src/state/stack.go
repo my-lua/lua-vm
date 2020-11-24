@@ -74,6 +74,30 @@ func (me *LuaStack) Pop() luavalue.ILuaValue {
 	return result
 }
 
+// PushN 连续推入n个Lua值
+func (me *LuaStack) PushN(values []luavalue.ILuaValue, n int) {
+	nValues := len(values)
+	if n < 0 {
+		n = nValues
+	}
+	for i := 0; i < n; i++ {
+		if i < nValues {
+			me.Push(values[i])
+		} else {
+			me.Push(luavalue.NewLuaNil())
+		}
+	}
+}
+
+// PopN 连续弹出n个Lua值
+func (me *LuaStack) PopN(n int) []luavalue.ILuaValue {
+	result := make([]luavalue.ILuaValue, n)
+	for i := n - 1; i >= 0; i-- {
+		result[i] = me.Pop()
+	}
+	return result
+}
+
 // AbsIndex 相对索引转换成为绝对索引（内部索引）
 func (me *LuaStack) AbsIndex(index int) int {
 	if index >= 0 {
