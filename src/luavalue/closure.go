@@ -1,7 +1,12 @@
 package luavalue
 
+import (
+	"../chunk"
+)
+
 // LuaClosure Lua闭包（函数）
 type LuaClosure struct {
+	proto *chunk.Prototype
 }
 
 // Type s
@@ -59,7 +64,12 @@ func (me *LuaClosure) ToLuaString() LuaString {
 	return NewLuaString(me.GetString())
 }
 
+// Prototype 获取函数原型
+func (me *LuaClosure) Prototype() *chunk.Prototype {
+	return me.proto
+}
+
 // NewLuaClosure 构造函数
-func NewLuaClosure() *LuaClosure {
-	return &LuaClosure{}
+func NewLuaClosure(proto *chunk.Prototype) *LuaClosure {
+	return &LuaClosure{proto}
 }
