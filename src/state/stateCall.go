@@ -32,5 +32,15 @@ func (me *LuaState) callLuaClosure(closure *luavalue.LuaClosure, nArgs, nResults
 	nRegs := int(closure.Prototype().MaxStackSize())
 	nParams := int(closure.Prototype().NumParams())
 	isVararg := closure.Prototype().IsVararg() == 1
+
+	newStack := NewLuaStack(nRegs + 20)
+	newStack.closure = closure
+
+	funcAndArgs := me.stack.PopN(nArgs + 1)
+	newStack.PushN(funcAndArgs[1:], nParams)
+	newStack.top = nArgs
+	if nArgs > nParams && isVararg {
+		newStack.varArgs = funcAndArgs[nParams+1:]
+	}
 	fmt.Println(nRegs, nParams, isVararg)
 }
