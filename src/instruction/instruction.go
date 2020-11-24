@@ -1,5 +1,7 @@
 package instruction
 
+import "fmt"
+
 // LuaInstruction Lua指令
 type LuaInstruction uint32
 
@@ -32,6 +34,48 @@ func (me LuaInstruction) OpCode() ELuaInstruction {
 func (me LuaInstruction) OpName() string {
 	info := LuaInstructionInfoTable(int(me.OpCode()))
 	return info.Name()
+}
+
+// Operands 获取指令操作数信息
+func (me LuaInstruction) Operands() string {
+	switch me.OpMode() {
+	case IABC:
+		a, b, c := me.ABC()
+		var outText = fmt.Sprintf("%d", a)
+		if me.BMode() != InstructionArgN {
+			// 9位数的最高位为1的话，视为常量表索引，低8位按负数输出
+			if b > 0xff {
+				outText += fmt.Sprintf(" %d", -1-(b&0xff))
+			} else {
+				outText += fmt.Sprintf(" %d", b)
+			}
+		}
+		if me.CMode() != InstructionArgN {
+			if c > 0xff {
+				outText += fmt.Sprintf(" %d", -1-(c&0xff))
+			} else {
+				outText += fmt.Sprintf(" %d", c)
+			}
+		}
+		return fmt.Sprintf("%s [ABC]", outText)
+	case IABx:
+		a, bx := me.ABx()
+		var outText = fmt.Sprintf("%d", a)
+		if me.BMode() == InstructionArgK {
+			outText += fmt.Sprintf(" %d", -1-bx)
+		} else if me.BMode() == InstructionArgU {
+			outText += fmt.Sprintf(" %d", bx)
+		}
+		return fmt.Sprintf("%s [ABx]", outText)
+	case IAsBx:
+		a, sbx := me.AsBx()
+		return fmt.Sprintf("%d %d [AsBx]", a, sbx)
+	case IAx:
+		ax := me.Ax()
+		return fmt.Sprintf("%d [Ax]", -1-ax)
+	default:
+		return ""
+	}
 }
 
 // OpMode 获取指令模式
