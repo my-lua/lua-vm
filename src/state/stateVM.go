@@ -23,7 +23,8 @@ func (me *LuaState) Fetch() instruction.LuaInstruction {
 
 // GetConst 获取常量
 func (me *LuaState) GetConst(index int) {
-	// c := me.Stack().Closure().Prototype().Con
+	value := me.Stack().Closure().Prototype().Constants()[index]
+	me.stack.Push(value)
 }
 
 // GetRK 获取寄存器或者常量

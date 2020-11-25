@@ -51,11 +51,6 @@ func (me *Prototype) MaxStackSize() byte {
 	return me.maxStackSize
 }
 
-// Codes 获取指令表
-// func (me *Prototype) Codes() []uint32 {
-// 	return me.codes
-// }
-
 // Instructions 指令列表
 func (me *Prototype) Instructions() []instruction.LuaInstruction {
 	return me.instructions
