@@ -15,7 +15,7 @@ type Prototype struct {
 	numParams       byte
 	isVararg        byte
 	maxStackSize    byte
-	codes           []uint32
+	instructions    []instruction.LuaInstruction
 	constants       []Constant
 	upvalues        []Upvalue
 	protos          []*Prototype
@@ -55,8 +55,13 @@ func (me *Prototype) MaxStackSize() byte {
 }
 
 // Codes 获取指令表
-func (me *Prototype) Codes() []uint32 {
-	return me.codes
+// func (me *Prototype) Codes() []uint32 {
+// 	return me.codes
+// }
+
+// Instructions 指令列表
+func (me *Prototype) Instructions() []instruction.LuaInstruction {
+	return me.instructions
 }
 
 // Constants 获取常量表
@@ -102,7 +107,7 @@ func (me *Prototype) ListName() []string {
 		me.Source(),
 		me.LineDefined(),
 		me.LastLineDefined(),
-		len(me.Codes()),
+		len(me.Instructions()),
 	)
 	return lines
 }
@@ -130,25 +135,25 @@ func (me *Prototype) ListMeta() []string {
 	return lines
 }
 
-// ListCodes 指令列表信息
-func (me *Prototype) ListCodes() []string {
-	var codeNum = len(me.Codes())
-	var lines = make([]string, codeNum+1)
-	lines[0] = fmt.Sprintf("指令数(%d):", codeNum)
-	for index, code := range me.Codes() {
+// ListInstructions 指令列表信息
+func (me *Prototype) ListInstructions() []string {
+	var instNum = len(me.Instructions())
+	var lines = make([]string, instNum+1)
+	lines[0] = fmt.Sprintf("指令数(%d):", instNum)
+	for index, inst := range me.Instructions() {
 		pindex := index + 1
-		var codeNum = ""
+		var instNum = ""
 		if index < len(me.LineInfos()) {
-			codeNum = fmt.Sprintf("%d", me.LineInfos()[index])
+			instNum = fmt.Sprintf("%d", me.LineInfos()[index])
 		}
 
 		lines[pindex] = fmt.Sprintf(
 			"\t%d.\t[%s]\t0x%08X\t%s %s",
 			pindex,
-			codeNum,
-			code,
-			instruction.LuaInstruction(code).OpName(),
-			instruction.LuaInstruction(code).Operands(),
+			instNum,
+			inst,
+			inst.OpName(),
+			inst.Operands(),
 		)
 
 		// 0000.0000.0 100.0000.00 00.0000.00 00.0110
@@ -250,7 +255,7 @@ func (me *Prototype) List() []string {
 	var lines []string
 	lines = append(lines, me.ListName()...)
 	lines = append(lines, me.ListMeta()...)
-	lines = append(lines, me.ListCodes()...)
+	lines = append(lines, me.ListInstructions()...)
 	lines = append(lines, me.ListConstants()...)
 	lines = append(lines, me.ListLocVars()...)
 	lines = append(lines, me.ListUpvalues()...)

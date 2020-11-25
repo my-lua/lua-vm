@@ -4,6 +4,8 @@ import (
 	"encoding/binary"
 	"io"
 	"math"
+
+	"../instruction"
 )
 
 // Reader 读取器
@@ -81,14 +83,14 @@ func (me *Reader) ReadString() string {
 	return string(bytes)
 }
 
-// ReadCodes 读取Lua虚拟机指令
-func (me *Reader) ReadCodes() []uint32 {
+// ReadInstructions 读取Lua虚拟机指令
+func (me *Reader) ReadInstructions() []instruction.LuaInstruction {
 	size := me.ReadUint32()
-	codes := make([]uint32, size)
-	for index := range codes {
-		codes[index] = me.ReadUint32()
+	instructions := make([]instruction.LuaInstruction, size)
+	for index := range instructions {
+		instructions[index] = instruction.LuaInstruction(me.ReadUint32())
 	}
-	return codes
+	return instructions
 }
 
 // ReadConstant 读取常量
@@ -147,7 +149,7 @@ func (me *Reader) ReadPrototype(parentSource string) *Prototype {
 		numParams:       me.ReadByte(),
 		isVararg:        me.ReadByte(),
 		maxStackSize:    me.ReadByte(),
-		codes:           me.ReadCodes(),
+		instructions:    me.ReadInstructions(),
 		constants:       me.ReadConstants(),
 		upvalues:        me.ReadUpvalues(),
 		protos:          me.ReadPrototypes(source),

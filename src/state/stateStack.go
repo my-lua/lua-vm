@@ -1,5 +1,10 @@
 package state
 
+// Stack 获取LuaState的当前Stack
+func (me *LuaState) Stack() *LuaStack {
+	return me.stack
+}
+
 // PushStack 函数调用栈压栈
 func (me *LuaState) PushStack(newStack *LuaStack) {
 	newStack.prev = me.stack
