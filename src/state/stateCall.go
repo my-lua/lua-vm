@@ -3,14 +3,13 @@ package state
 import (
 	"fmt"
 
-	"../chunk"
 	"../luavalue"
 )
 
 // Load 构建出LuaClosure并且推入栈中
 func (me *LuaState) Load(chunkBuffer []byte, chunkName, mode string) int {
 	// 这里需要根据chunk生成函数原型
-	var proto *chunk.Prototype = nil
+	var proto *luavalue.Prototype = nil
 	// 根据函数原型加工出Lua闭包
 	closure := luavalue.NewLuaClosure(proto)
 	// 闭包推入栈中

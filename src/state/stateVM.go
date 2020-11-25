@@ -29,5 +29,14 @@ func (me *LuaState) GetConst(index int) {
 
 // GetRK 获取寄存器或者常量
 func (me *LuaState) GetRK(index int) {
+	if index < 0xff {
+		me.GetConst(index & 0xff)
+	} else {
+		me.PushValue(index)
+	}
+}
 
+// RegisterCount 当前栈帧的最大寄存器数量
+func (me *LuaState) RegisterCount() int {
+	return int(me.Stack().Closure().Prototype().MaxStackSize())
 }
