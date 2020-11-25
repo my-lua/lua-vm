@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"../instruction"
-	"../luavalue"
 	"github.com/fatih/color"
 )
 
@@ -17,7 +16,7 @@ type Prototype struct {
 	isVararg        byte
 	maxStackSize    byte
 	instructions    []instruction.LuaInstruction
-	constants       []luavalue.ILuaValue
+	constants       []Constant
 	upvalues        []Upvalue
 	protos          []*Prototype
 	lineInfos       []uint32
