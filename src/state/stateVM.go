@@ -1,8 +1,12 @@
 package state
 
+import (
+	"../instruction"
+)
+
 // PC 当前程序计数器
 func (me *LuaState) PC() int {
-	return me.stack.pc
+	return me.Stack().PC()
 }
 
 // AddPC 增加程序计数器
@@ -11,8 +15,18 @@ func (me *LuaState) AddPC(n int) {
 }
 
 // Fetch 获取当前指令并后移程序计数器
-func (me *LuaState) Fetch() uint32 {
-	p := me.Stack().Closure().Prototype()
+func (me *LuaState) Fetch() instruction.LuaInstruction {
+	inst := me.Stack().Closure().Prototype().Instructions()[me.PC()]
 	me.stack.pc++
-	return 0
+	return inst
+}
+
+// GetConst 获取常量
+func (me *LuaState) GetConst(index int) {
+	// c := me.Stack().Closure().Prototype().Con
+}
+
+// GetRK 获取寄存器或者常量
+func (me *LuaState) GetRK(index int) {
+
 }

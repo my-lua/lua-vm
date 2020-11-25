@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"../instruction"
+	"../luavalue"
 	"github.com/fatih/color"
 )
 
@@ -16,7 +17,7 @@ type Prototype struct {
 	isVararg        byte
 	maxStackSize    byte
 	instructions    []instruction.LuaInstruction
-	constants       []Constant
+	constants       []luavalue.ILuaValue
 	upvalues        []Upvalue
 	protos          []*Prototype
 	lineInfos       []uint32
@@ -65,6 +66,7 @@ func (me *Prototype) Instructions() []instruction.LuaInstruction {
 }
 
 // Constants 获取常量表
+// 常量需要改造
 func (me *Prototype) Constants() []Constant {
 	return me.constants
 }
